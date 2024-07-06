@@ -20,6 +20,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^10.0.0
         version: 10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10)
+      dhcp:
+        specifier: ^0.2.20
+        version: 0.2.20
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
@@ -1174,6 +1177,11 @@ packages:
 
   dezalgo@1.0.4:
     resolution: {integrity: sha512-rXSP0bf+5n0Qonsb+SVVfNfIsimO4HEtmnIpPHY8Q1UCzKlQrDMfdobr8nJOOsRgWCyMRqeSBQzmWUMq7zvVig==}
+
+  dhcp@0.2.20:
+    resolution: {integrity: sha512-SfKVTg5qqe5aXSrSAXABM1yJl3OjekhSg6ryJyLjK1015waNj9fmMq8SrHI6qWuICtiprfYbh/f55giBJcC9Ag==}
+    engines: {node: '>=5.10.0'}
+    hasBin: true
 
   diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
@@ -4108,6 +4116,10 @@ snapshots:
     dependencies:
       asap: 2.0.6
       wrappy: 1.0.2
+
+  dhcp@0.2.20:
+    dependencies:
+      minimist: 1.2.8
 
   diff-sequences@29.6.3: {}
 

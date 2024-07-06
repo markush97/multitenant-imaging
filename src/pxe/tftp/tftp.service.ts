@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { createServer } from 'tftp2';
+import { TFTPServer, createServer } from 'tftp2';
 import { readFileSync,writeFileSync } from 'fs';
 import { TFTPConfigService } from './tftp.config.service';
 import { resolve } from 'path';
@@ -7,7 +7,7 @@ import { resolve } from 'path';
 @Injectable() 
 export class TFTPService implements OnModuleInit {
     private readonly logger = new Logger('TFTPService');
-    private tftpServer;
+    private tftpServer: TFTPServer;
 
     constructor(private readonly tftpConfig:TFTPConfigService) {}
 
