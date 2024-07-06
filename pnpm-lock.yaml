@@ -23,12 +23,21 @@ importers:
       dhcp:
         specifier: ^0.2.20
         version: 0.2.20
+      ping:
+        specifier: ^0.4.4
+        version: 0.4.4
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
+      tftp2:
+        specifier: ^0.0.1
+        version: 0.0.1
+      wireguard-tools:
+        specifier: ^0.1.0
+        version: 0.1.0
     devDependencies:
       '@nestjs/cli':
         specifier: ^10.0.0
@@ -48,6 +57,9 @@ importers:
       '@types/node':
         specifier: ^20.3.1
         version: 20.14.10
+      '@types/ping':
+        specifier: ^0.4.4
+        version: 0.4.4
       '@types/supertest':
         specifier: ^6.0.0
         version: 6.0.2
@@ -618,6 +630,9 @@ packages:
 
   '@types/node@20.14.10':
     resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
+
+  '@types/ping@0.4.4':
+    resolution: {integrity: sha512-ifvo6w2f5eJYlXm+HiVx67iJe8WZp87sfa683nlqED5Vnt9Z93onkokNoWqOG21EaE8fMxyKPobE+mkPEyxsdw==}
 
   '@types/qs@6.9.15':
     resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
@@ -1906,6 +1921,9 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  lodash.mergewith@4.6.2:
+    resolution: {integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==}
+
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
@@ -2164,6 +2182,10 @@ packages:
   picomatch@4.0.1:
     resolution: {integrity: sha512-xUXwsxNjwTQ8K3GnT4pCJm+xq3RUPQbmkYJTP5aFIfNIvbcc/4MUxgBaaRSZJ6yGJZiGSyYlM6MzwTsRk8SYCg==}
     engines: {node: '>=12'}
+
+  ping@0.4.4:
+    resolution: {integrity: sha512-56ZMC0j7SCsMMLdOoUg12VZCfj/+ZO+yfOSjaNCRrmZZr6GLbN2X/Ui56T15dI8NhiHckaw5X2pvyfAomanwqQ==}
+    engines: {node: '>=4.0.0'}
 
   pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
@@ -2511,6 +2533,9 @@ packages:
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
 
+  tftp2@0.0.1:
+    resolution: {integrity: sha512-JtsvgDNYeDPCoHRmC5XVC6tfIpO7R1FLoO10IGDyq1Hb/RjacVOXIn+RTucXkRNX6DuBJzGoz0Bz44uh11qSIA==}
+
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
 
@@ -2715,6 +2740,9 @@ packages:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
     hasBin: true
+
+  wireguard-tools@0.1.0:
+    resolution: {integrity: sha512-oBnnSB6wXGEAB1ZVPfbfpX8WlHNw7wv45r13ILX73felVnrGpMxMjFcKGAsMeRfBOGzXcW0LgAWe+T53dRcI+g==}
 
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
@@ -3499,6 +3527,8 @@ snapshots:
   '@types/node@20.14.10':
     dependencies:
       undici-types: 5.26.5
+
+  '@types/ping@0.4.4': {}
 
   '@types/qs@6.9.15': {}
 
@@ -5084,6 +5114,8 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
+  lodash.mergewith@4.6.2: {}
+
   lodash@4.17.21: {}
 
   log-symbols@4.1.0:
@@ -5300,6 +5332,8 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.1: {}
+
+  ping@0.4.4: {}
 
   pirates@4.0.6: {}
 
@@ -5643,6 +5677,8 @@ snapshots:
 
   text-table@0.2.0: {}
 
+  tftp2@0.0.1: {}
+
   through@2.3.8: {}
 
   tmp@0.0.33:
@@ -5840,6 +5876,10 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  wireguard-tools@0.1.0:
+    dependencies:
+      lodash.mergewith: 4.6.2
 
   word-wrap@1.2.5: {}
 
