@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { VPNWireguardService } from './wireguard-vpn.service';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [],
   controllers: [],
   providers: [VPNWireguardService],
 })

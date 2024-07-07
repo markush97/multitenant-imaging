@@ -10,21 +10,21 @@ export class VPNWireguardService extends VPNService  {
     protected readonly logger = new Logger('VPNWireguardService');
 
     override async connectTunnel(config: WireguardConfig) {
-        config.connectionId = Math.floor(Math.random() * 1000).toString();
+        config.connectionId = await super.connectTunnel(config);
         this.logger.log(`Setting up Tunnelconnection ${config.connectionId}...`);
 
         const filePath = join('./', '/config', `/wg-${config.connectionId}.conf`);
         const wireguardConfig = new WgConfig({
             wgInterface: {
-                address: [config.client.ip],
-                privateKey: config.client.privateKey,
+                address: [config.providerConfig.client.ip],
+                privateKey: config.providerConfig.client.privateKey,
                 name: config.connectionId
             },
             peers: [
                 {
-                    allowedIps: config.server.ipRanges,
-                    publicKey: config.server.publicKey,
-                    endpoint: config.server.host
+                    allowedIps: config.providerConfig.server.ipRanges,
+                    publicKey: config.providerConfig.server.publicKey,
+                    endpoint: config.remote
                 }
             ],
             filePath
@@ -39,6 +39,8 @@ export class VPNWireguardService extends VPNService  {
         if (!await this.verify(config)) {
             await this.disconnectTunnel(config)
         }
+        
+        return config.connectionId;
     }
 
     override async disconnectTunnel(config: WireguardConfig) {

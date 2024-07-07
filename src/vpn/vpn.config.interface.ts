@@ -1,16 +1,9 @@
 import { WgConfig } from "wireguard-tools";
 
 export interface VPNConfig {
-    server: {
-        publicKey: string;
-        ipRanges: string[];
-        host: string;
-    };
-    client: {
-        privateKey: string;
-        ip: string;
-    };
+    providerConfig?: object;
     pingTest?: string;
     connection?: WgConfig
     connectionId?: string;
+    remote: string;
 }

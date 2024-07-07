@@ -13,7 +13,11 @@ export abstract class VPNService implements OnModuleDestroy {
      * Startup a VPN-Tunnel and register it in the vpn service
      * @param config 
      */
-    abstract connectTunnel(config: VPNConfig): Promise<void>;
+    async connectTunnel(config: VPNConfig): Promise<string> {
+        const connectionId = Math.floor(Math.random() * 1000).toString();
+        return connectionId;
+
+    }
 
     /**
      * Disconnect VPN Tunnel
@@ -28,7 +32,7 @@ export abstract class VPNService implements OnModuleDestroy {
      * @param delay ms to wait between each ping
      * @returns result of the check
      */
-    protected async verify(config: VPNConfig, retires = this.vpnConfig.defaultRetries, delay = this.vpnConfig.defaultDelay): Promise<boolean> {
+    protected async verify(config: VPNConfig, retires = 10, delay = 1000): Promise<boolean> {
         if (config.pingTest) {
             this.logger.debug(`Pinging tunnel by using host ${config.pingTest}...`)
             const res = await ping.probe(config.pingTest);
