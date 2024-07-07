@@ -2,7 +2,7 @@ import { HttpStatus } from '@nestjs/common';
 import { MTIHttpException } from './mit-exception';
 import { MTIErrorCodes } from './mti.error-codes.enum';
 
-export class ForbiddenPatholuxException extends MTIHttpException {
+export class ForbiddenMTIException extends MTIHttpException {
     constructor(
         errorCode: MTIErrorCodes,
         message?: string | Record<string, unknown>

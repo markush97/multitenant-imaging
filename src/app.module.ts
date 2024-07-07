@@ -6,9 +6,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DHCPModule } from './dhcp/dhcp.module';
 import { VPNModule } from './vpn/vpn.module';
 import { CoreConfigModule } from './core/config/core.config.module';
+import { CorePersistenceModule } from './core/persistence/core-persistence.module';
 
 @Module({
-  imports: [PXEModule, CoreConfigModule, DHCPModule, VPNModule],
+  imports: [PXEModule, CoreConfigModule, DHCPModule, VPNModule, CorePersistenceModule],
   controllers: [AppController],
   providers: [AppService, ConfigService],
   exports: []
