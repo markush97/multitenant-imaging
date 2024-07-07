@@ -4,7 +4,7 @@ import { DHCPConfigService } from './dhcp.config.service';
 import { DHCPService } from './dhcp.service';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [],
   controllers: [],
   providers: [DHCPService, DHCPConfigService],
 })
