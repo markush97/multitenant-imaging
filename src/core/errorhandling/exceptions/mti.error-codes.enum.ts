@@ -1,3 +1,4 @@
 export enum MTIErrorCodes {
+    GENERIC_VALIDATION_ERROR = 1001,
     ENTITY_NOT_FOUND = 2001
 }
