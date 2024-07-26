@@ -60,3 +60,7 @@ config/*
 
 # Application Data
 data/
+
+resources/networkboot
+
+resources/build
