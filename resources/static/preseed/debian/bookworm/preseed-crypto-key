@@ -1,0 +1,78 @@
+#!/bin/sh
+# ^^ no bash in installer environment, only BusyBox
+
+# I couldn't get this to work with using debconf-set to set
+# the passphrase (so this has to be run via
+# `preseed/include_command`)
+
+# Die on error
+set -e
+
+# Currently (2023-08-10) the Debian installer only supports
+# passphrases, GnuPG key files or random key files which are
+# regenerated on each reboot. So, to use a random keyfile, we
+# initially have to provide the installer with a passphrase.
+
+# Create a passphrase by pulling only characters in the range
+# `!` to `~` (ASCII 0x21 to 0x7e) from /dev/random.
+TMP_PASSPHRASE_FILE=$( mktemp )
+umask 0077
+grep -o '[!-~]' /dev/random | tr -d '\n' | head -c64 > $TMP_PASSPHRASE_FILE
+
+# Create an include file for debian-installer with the passphrase as answers to the questions
+DEB_INSTALLER_CRYPT_INC_FILE=$( mktemp )
+echo -n "d-i partman-crypto/passphrase string " | \
+  cat - $TMP_PASSPHRASE_FILE > $DEB_INSTALLER_CRYPT_INC_FILE
+# Need a newline between the entries
+echo >>$DEB_INSTALLER_CRYPT_INC_FILE
+echo -n "d-i partman-crypto/passphrase-again string " | \
+  cat - $TMP_PASSPHRASE_FILE >>$DEB_INSTALLER_CRYPT_INC_FILE
+# Newline probably not needed at end of file, but it is neat to add it.
+echo >>$DEB_INSTALLER_CRYPT_INC_FILE
+
+# Echo the file to be included, so debian-installer will do
+# that - assuming this command is being run via
+# `preseed/include_command`. Without file:// will try and fetch
+# from the webserver this preseed was served from.
+echo "file://$DEB_INSTALLER_CRYPT_INC_FILE"
+
+# Add extra commands to the file that should be run using
+# `preseed/late_command` to ensure passphrase is included in
+# new install (or the encryption will be un-unlockable as the
+# random passphrase will be lost when the installer reboots).
+IN_TARGET_KEY_FILE=/etc/keys/luks-lvm.key
+cat - >>/tmp/late-command-script <<LATE_EOF
+## BEGIN ADDED BY preseed-crypto-key preseed/include_command
+umask 0077
+mkdir -p /target$( dirname ${IN_TARGET_KEY_FILE} )
+cp $TMP_PASSPHRASE_FILE /target$IN_TARGET_KEY_FILE
+
+# Use /root as /tmp might be noexec
+cat - >/target/root/configure-crypt-unlock <<EOF
+#!/usr/bin/bash
+
+# Standard bash safety features
+set -eufo pipefail
+
+if grep -q UMASK /etc/initramfs-tools/initramfs.conf
+then
+  sed -i 's-^#\?UMASK.*\\\$-UMASK=0077-' /etc/initramfs-tools/initramfs.conf
+else
+  echo -e "# Secure initramfs while it contains unlock keys for root filesystem\nUMASK=0077" >>/etc/initramfs-tools/initramfs.conf
+fi
+
+# Include keyfile in initramfs
+sed -i 's-^#\?KEYFILE_PATTERN=.*\\\$-KEYFILE_PATTERN=$( dirname ${IN_TARGET_KEY_FILE} )/*.key-' /etc/cryptsetup-initramfs/conf-hook
+
+# Configure crypt to use keyfile to unlock encypted partition(s)
+sed -i 's#\(UUID=[^ ]\+\) none#\1 ${IN_TARGET_KEY_FILE}#' /etc/crypttab
+
+# Updater initramfs with key file
+update-initramfs -u
+EOF
+
+chmod 500 /target/root/configure-crypt-unlock
+in-target /root/configure-crypt-unlock
+rm /target/root/configure-crypt-unlock
+## END ADDED BY preseed-crypto-key preseed/include_command
+LATE_EOF

@@ -23,7 +23,10 @@ apt-get install -y --no-install-recommends \
     systemd-sysv \
     curl \
     openssh-client && \
-apt-get autoremove && apt-get clean
+    apt-get purge $(aptitude search '~i!~M!~prequired!~pimportant!~R~prequired!~R~R~prequired!~R~pimportant!~R~R~pimportant!busybox!grub!initramfs-tools' | awk '{print $2}') && \
+    apt-get purge aptitude && \
+    apt-get autoremove && \
+    apt-get clean
 EOF
 
 sudo umount -R $DROOT

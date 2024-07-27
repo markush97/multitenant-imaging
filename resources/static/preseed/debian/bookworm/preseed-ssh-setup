@@ -1,0 +1,18 @@
+    preseed-ssh-setup                                               \
+
+#!/bin/sh
+
+# Install and allow remote-root SSH for post-install config
+cat - >>/tmp/late-command-script <<EOF
+## BEGIN ADDED BY preseed-ssh-setup preseed/include_command
+in-target apt-get install -y openssh-server
+
+# Setup initial root ssh keys
+mkdir -m 700 /target/root/.ssh
+umask 0077
+cat - >/target/root/.ssh/authorized_keys <<KEYS_EOF
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLOooqbSri3ciupUbd9NYec4JeZBSrmp7/dPDSaRTYU markus@ikarus
+KEYS_EOF
+
+## END ADDED BY preseed-ssh-setup preseed/include_command
+EOF
