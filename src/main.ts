@@ -44,6 +44,8 @@ async function bootstrap() {
     // shutdown hooks to trigger actions on application shutdown
     app.enableShutdownHooks();
 
+    
+
     Logger.log(`Starting application in ${config.processEnv} mode`);
     await app.listen(config.httpsPort);
     Logger.log(
